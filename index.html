@@ -79,8 +79,8 @@
     }
     #result {
       position: absolute;
-      width: 320px;
-      height: 320px;
+      width: 350px;
+      height: 350px;
       background-color: rgb(255, 255, 255);
       display: flex;
       justify-content: space-evenly;
@@ -104,14 +104,14 @@
       height: 40px;
     }
     #internal {
-      width: 100px;
-      height: 100px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
       background-color: rgb(36, 208, 255);
-      font-size: 40px;
+      font-size: 45px;
     }
     .close {
       border: none;
@@ -132,8 +132,10 @@
       position: absolute;
       width: 100%;
       bottom: -20px;
-      height: 30px;
+      height: 35px;
+      line-height: 30px;
       font-weight: 500;
+      text-align: center;
     }
     .outer {
       position: relative;
@@ -171,7 +173,6 @@
       height: 50px;
       text-align: center;
       flex-grow: 1;
-
       margin-top: 10px;
       margin-bottom: 10px;
     }
@@ -229,7 +230,13 @@
 
         <div class="form-group">
           <label for="moodle">Enter your Moodle mark</label>
-          <input type="number" name="moodle" id="moodle" placeholder="out of 6" maxlength="1" />
+          <input
+            type="number"
+            name="moodle"
+            id="moodle"
+            placeholder="out of 6"
+            maxlength="1"
+          />
         </div>
         <div class="form-group">
           <label for="assignment">Enter your assignment mark</label>
@@ -287,30 +294,34 @@
         );
         let message = scoreMsg(internal);
 
+        outputCard.textContent = " ";
         slideup();
         let i = 0;
-        setInterval(() => {
-          if (internal >= i) {
-            outputCard.innerHTML = i;
+        let intervalId = setInterval(() => {
+          if (internal > i) {
+            outputCard.textContent = i;
+            msg.textContent = " ";
             i++;
           } else {
-            i = internal+1;
-            msg.innerHTML = message;
-            clearInterval;
+            outputCard.textContent = i;
+            msg.textContent = message;
+            clearInterval(intervalId); // Call with the stored ID
           }
         }, 50);
       }
-
       function scoreMsg(score) {
         let message;
 
-        if (score <= 25) {
+        if (score == 0) {
+          message = "You have zero internal";
+        } else if (score <= 25) {
           message = "Too low..Try to get more marks in semester.";
-        } else if (score <= 30) {
+        } else if (score > 25 && score <= 30) {
           message = "Good..Try to get more marks in semester.";
         } else if (score > 30) {
           message = "Good job! Keep it up.";
         }
+
         return message;
       }
 
