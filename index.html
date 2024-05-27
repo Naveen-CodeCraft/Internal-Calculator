@@ -284,14 +284,14 @@
         let assignmentMark = Number(
           document.getElementById("assignment").value
         );
-        let internal = parseInt(
+        let internal = (
           CIE_1 * 0.16 +
             CIE_2 * 0.16 +
             CIE_3 * 0.16 +
             moodleMark +
             attendanceMark +
             assignmentMark
-        );
+        ).toFixed(2);
         let message = scoreMsg(internal);
 
         outputCard.textContent = " ";
